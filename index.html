@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Antoine">
+  <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="./style.css">
+
+  <title>Les petits plats</title>
+</head>
+
+<body>
+  <header>
+    <div class="py-4 text-center">
+      <img class="d-block mx-auto" src="15973932905401_logo.png" alt="" width="268">
+    </div>
+  </header>
+
+  <main>
+    <div class="container lasearch">
+
+      <div class="input-group mb-2">
+        <form id="search-books" class="input-group mb-1">
+          <label for="search"></label>
+          <input type="text" name="search" class="form-control  bg-grey" id="searchTerm" autocomplete="off"
+            placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette">
+          <div name="search_btn" class="laloupe bg-grey"><svg class="loupe" width="33" height="33" viewBox="0 0 33 33"
+              fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M23.4167 20.6667H21.9683L21.455 20.1717C23.2517 18.0817 24.3333 15.3683 24.3333 12.4167C24.3333 5.835 18.9983 0.5 12.4167 0.5C5.835 0.5 0.5 5.835 0.5 12.4167C0.5 18.9983 5.835 24.3333 12.4167 24.3333C15.3683 24.3333 18.0817 23.2517 20.1717 21.455L20.6667 21.9683V23.4167L29.8333 32.565L32.565 29.8333L23.4167 20.6667ZM12.4167 20.6667C7.85167 20.6667 4.16667 16.9817 4.16667 12.4167C4.16667 7.85167 7.85167 4.16667 12.4167 4.16667C16.9817 4.16667 20.6667 7.85167 20.6667 12.4167C20.6667 16.9817 16.9817 20.6667 12.4167 20.6667Z"
+                fill="black" />
+            </svg></div>
+        </form>
+      </div>
+
+      <div class="mb-1">
+        <div id="myList"></div>
+
+        <div class="btn-group mb-3 buttons" id="lesbuttons">
+          <div class="wrapper wrapper1 btn-lebleu" id="wrapper1">
+            <p class="click-text"><input type="text" id="searchIngredients" placeholder="Ingrédients"/>
+              <span class="myarrow float-right"></span> 
+            </p>
+            <div id="appIngredient" class=" wrapper1"></div>
+          </div>
+
+          <div class="wrapper wrapper2 btn-vert" id="wrapper2">
+            <p class="click-text"><input type="text" id="searchAppareil" placeholder="Appareil"/>
+              <span class="myarrow float-right"></span> 
+            </p>
+            <div id="appAppareil" class=" wrapper2"></div>
+          </div>
+
+          <div class="wrapper wrapper3 btn-orange" id="wrapper3">
+            <p class="click-text"><input type="text" id="searchUstensiles" placeholder="Ustensiles"/>
+              <span class="myarrow float-right"></span> 
+            </p>
+            <div id="appUstensiles" class=" wrapper3"></div>
+          </div>
+
+      </div>
+
+    <div class="album py-3">
+      <div class="container folio">
+
+        <div id="app"></div>
+      </div>
+    </div>
+
+  </main>
+  <footer class="text-muted">
+    <div class="container">
+      <div id="formulation"></div>
+      <p class="float-right">
+        <a href="#">Back to top</a>
+      </p>
+
+    </div>
+  </footer>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <script src="./script.js"></script>
+</body>
+
+</html>
