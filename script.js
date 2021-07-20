@@ -1830,8 +1830,8 @@ var handleSearch = function (event) {
                 }
             }
             if (n >= 3) {
-                //return recipestring.match(searchTermRegex); // match 
-                return recipestring.includes(tokens); // includes
+                return recipestring.match(searchTermRegex); // match 
+                //return recipestring.includes(tokens); // includes
             } else {
                 render(data);
             }
