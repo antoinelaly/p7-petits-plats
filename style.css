@@ -80,6 +80,9 @@ max-height: 25px;
   padding-top: 7px;
   height: 25px;
 }
+.tagsIngredients .lingredient {
+  padding-bottom: 30px;
+}
 #myList {
   height: 20px;
 }
