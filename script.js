@@ -1766,7 +1766,6 @@ flatObjet.forEach(o => {  // remove duplicate
     if (!temp)
         recipes.push(o);
 });
-// console.log("recipes", recipes);
 // ingrédients agrégés et répétitions supprimés 
 
 
