@@ -1766,6 +1766,7 @@ flatObjet.forEach(o => {  // remove duplicate
     if (!temp)
         recipes.push(o);
 });
+// console.log("recipes", recipes);
 // ingrédients agrégés et répétitions supprimés 
 
 
@@ -1847,28 +1848,38 @@ searchTerm.addEventListener('keyup', handleSearch);
 /***************** */
 
 
-// affichage des ingrédients dans la boîte de recherche
+flatIngred = [];
+arr.forEach((o) => {
+    o.ingredients.forEach((ingred) => {
+        flatIngred.push({ // retourne ingred au même niveau que o
+            "ingredient": ingred.ingredient
+        });
+    });
+});
+//console.log("flatIngred", flatIngred);
+
 var appIngredient = document.getElementById('appIngredient');
+
 function renderIngredient(data) {
     if (data.length > 0) {
-        let leresult = data.map(function (recipes) {
-            return recipes.ingredient;
+        let leresult = data.map(function (flatIngred) {
+            return flatIngred.ingredient;
         });
-        //console.log("leresult 1", typeof leresult);
+        //console.log("leresult 1", leresult);
         let unique = leresult.reduce(function (a, b) {
             if (a.indexOf(b) < 0) { a.push(b); }
             return a;
-        }, []).join('');
-        var recipesHTMLString = '<ul class="row tagsIngredients ">' +
+        }, []).join('</span><span class="lingredient">');
+        var recipesHTMLString = '<ul class="row tagsIngredients "><span class="lingredient">' +
             unique
-            + '</ul>';
+            + '</span></ul>';
         //console.log("unique 1", typeof unique);
     } else {
         var recipesHTMLString = 'Aucune ';
     }
     appIngredient.innerHTML = recipesHTMLString;
 }
-renderIngredient(recipes);
+renderIngredient(flatIngred);
 
 
 var appAppareil = document.getElementById('appAppareil');
@@ -1931,22 +1942,22 @@ document.getElementById('wrapper1').onclick = function () {
     var className1 = ' ' + wrapper1.className + ' ';
     this.className = ~className1.indexOf(' active ') ?
         className1.replace(' active ', ' ') : this.className + ' active';
-        wrapper2.classList.remove("active");
-        wrapper3.classList.remove("active");
+    wrapper2.classList.remove("active");
+    wrapper3.classList.remove("active");
 }
 document.getElementById('wrapper2').onclick = function () {
     var className2 = ' ' + wrapper2.className + ' ';
     this.className = ~className2.indexOf(' active ') ?
         className2.replace(' active ', ' ') : this.className + ' active';
-        wrapper1.classList.remove("active");
-        wrapper3.classList.remove("active");
+    wrapper1.classList.remove("active");
+    wrapper3.classList.remove("active");
 }
 document.getElementById('wrapper3').onclick = function () {
     var className3 = ' ' + wrapper3.className + ' ';
     this.className = ~className3.indexOf(' active ') ?
         className3.replace(' active ', ' ') : this.className + ' active';
-        wrapper1.classList.remove("active");
-        wrapper2.classList.remove("active");
+    wrapper1.classList.remove("active");
+    wrapper2.classList.remove("active");
 }
 
 
