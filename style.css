@@ -80,6 +80,9 @@ max-height: 25px;
   padding-top: 7px;
   height: 25px;
 }
+.tagsIngredients .lingredient {
+  padding-bottom: 30px;
+}
 #myList {
   height: 20px;
 }
@@ -392,4 +395,8 @@ font-size: 12px;
 transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 user-select: none;
 flex-shrink: 0;
+}
+
+.no-click {
+  pointer-events: none;
 }

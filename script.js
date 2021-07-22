@@ -1734,7 +1734,7 @@ arr.forEach((o) => {
             flatObjet.push({ // retourne ingred au même niveau que o
                 "id": o.id,
                 "name": o.name,
-                "ingredient": '<span class="lingredient">' + ingred.ingredient + '</span>',
+                "ingredient": '<span class="lingredient leflat">' + ingred.ingredient + '</span>',
                 "description": o.description,
                 "appliance": '<span class="lappareil">' + o.appliance + '</span>',
                 "ustensils": o.ustensils
@@ -1743,7 +1743,7 @@ arr.forEach((o) => {
             flatObjet.push({
                 "id": o.id,
                 "name": o.name,
-                "ingredient": '<span class="lingredient">' + ingred.ingredient + '</span><span class="laquantity">: ' + ingred.quantity + '</span>',
+                "ingredient": '<span class="lingredient leflat">' + ingred.ingredient + '</span><span class="laquantity">: ' + ingred.quantity + '</span>',
                 "description": o.description,
                 "appliance": '<span class="lappareil">' + o.appliance + '</span>',
                 "ustensils": o.ustensils
@@ -1852,7 +1852,7 @@ flatIngred = [];
 arr.forEach((o) => {
     o.ingredients.forEach((ingred) => {
         flatIngred.push({ // retourne ingred au même niveau que o
-            "ingredient": ingred.ingredient
+            "ingredient": '<span class="lingredient">' + ingred.ingredient + '</span>'
         });
     });
 });
@@ -1869,11 +1869,12 @@ function renderIngredient(data) {
         let unique = leresult.reduce(function (a, b) {
             if (a.indexOf(b) < 0) { a.push(b); }
             return a;
-        }, []).join('</span><span class="lingredient">');
-        var recipesHTMLString = '<ul class="row tagsIngredients "><span class="lingredient">' +
+        }, []).join(' ');
+        //}, []).join('\", \"');
+        //console.log("unique 1", unique);
+        var recipesHTMLString = '<ul class="row tagsIngredients ">' +
             unique
-            + '</span></ul>';
-        //console.log("unique 1", typeof unique);
+            + '</ul>';
     } else {
         var recipesHTMLString = 'Aucune ';
     }
@@ -2043,7 +2044,7 @@ mylist.addEventListener('click', function (e) { // enlever un tag
 function updateViewTags() {// vue des tags
     var output = "";
     for (var i = 0; i < tags.length; i++) {
-        output += "<span><a href='#' class='item ' value='" + i + "'>" + tags[i] + " <i class=\"bi bi-x-circle\"></i>" + "\n" + "</a></span>";
+        output += "<span><a href='#' class='item ' value='" + i + "'>" + tags[i] + " <i class=\"no-click bi bi-x-circle\"></i>" + "\n" + "</a></span>";
     }
     mylist.innerHTML = output;
 }
