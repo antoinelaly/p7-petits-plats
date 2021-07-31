@@ -1734,7 +1734,7 @@ arr.forEach((o) => {
             flatObjet.push({ // retourne ingred au même niveau que o
                 "id": o.id,
                 "name": o.name,
-                "ingredient": '<span class="lingredient">' + ingred.ingredient + '</span>',
+                "ingredient": '<span class="lingredient leflat">' + ingred.ingredient + '</span>',
                 "description": o.description,
                 "appliance": '<span class="lappareil">' + o.appliance + '</span>',
                 "ustensils": o.ustensils
@@ -1743,7 +1743,7 @@ arr.forEach((o) => {
             flatObjet.push({
                 "id": o.id,
                 "name": o.name,
-                "ingredient": '<span class="lingredient">' + ingred.ingredient + '</span><span class="laquantity">: ' + ingred.quantity + '</span>',
+                "ingredient": '<span class="lingredient leflat">' + ingred.ingredient + '</span><span class="laquantity">: ' + ingred.quantity + '</span>',
                 "description": o.description,
                 "appliance": '<span class="lappareil">' + o.appliance + '</span>',
                 "ustensils": o.ustensils
@@ -1793,7 +1793,6 @@ function render(data) {
 }
 render(recipes);
 
-
 // pour chaque ingreédient le contenu
 /* cette partie est dédié à l'algorithme de recherche
 * preparation du search terme : split => count, split filter => trim, regex => join
@@ -1812,7 +1811,7 @@ var handleSearch = function (event) {
             .split('');
     }
     var count = countChars(searchTerm);
-    var n = count.length;
+    var ncount = count.length;
 
     var tokens = searchTerm
         .split(' ') // transforming the word into an array of characters
@@ -1822,37 +1821,44 @@ var handleSearch = function (event) {
 
     if (tokens.length) {
         var searchTermRegex = new RegExp(tokens.join('|'), 'gim');
-        var filteredList = recipes.filter(function (recipe) { // filter
+        var filteredList = recipes.filter(function (recipe) { // recipes filter
             var recipestring = '';
+
             for (var key in recipe) {
                 if (recipe.hasOwnProperty(key) && recipe[key] !== '') { // hasOwnProperty
                     recipestring += recipe[key].toString().toLowerCase().trim() + ' ';
                 }
             }
-            if (n >= 3) {
+            if (ncount >= 3) {
                 return recipestring.match(searchTermRegex); // match 
                 //return recipestring.includes(tokens); // includes
-            } else {
+            }
+            else {
                 render(data);
             }
-
         });
         render(filteredList);
         renderIngredient(filteredList);
         renderAppareil(filteredList);
         renderUstensiles(filteredList);
     }
+    else {
+        render(recipes);
+        renderIngredient(recipes);
+        renderAppareil(recipes);
+        renderUstensiles(recipes);
+    }
 };
 searchTerm.addEventListener('keyup', handleSearch);
 
 /***************** */
-
-
+/* cette partie est dédié à l'affichage des filtres depuis le array
+*/
 flatIngred = [];
 arr.forEach((o) => {
     o.ingredients.forEach((ingred) => {
         flatIngred.push({ // retourne ingred au même niveau que o
-            "ingredient": ingred.ingredient
+            "ingredient": '<span class="lingredient">' + ingred.ingredient + '</span>'
         });
     });
 });
@@ -1869,11 +1875,11 @@ function renderIngredient(data) {
         let unique = leresult.reduce(function (a, b) {
             if (a.indexOf(b) < 0) { a.push(b); }
             return a;
-        }, []).join('</span><span class="lingredient">');
-        var recipesHTMLString = '<ul class="row tagsIngredients "><span class="lingredient">' +
+        }, []).join(' ');
+        //console.log("unique 1", unique);
+        var recipesHTMLString = '<ul class="row tagsIngredients ">' +
             unique
-            + '</span></ul>';
-        //console.log("unique 1", typeof unique);
+            + '</ul>';
     } else {
         var recipesHTMLString = 'Aucune ';
     }
@@ -1964,7 +1970,7 @@ document.getElementById('wrapper3').onclick = function () {
 /*
 * l'affichage dynamique en fontion du dom, du mot recherché et des mots stockés  
 * Partie dynamique qui écoupe la search kws, remonte les kws du dom 
-* Progressivement avec flex et none le système remont dynamiquement les kws dans la bîte de recherche 
+* Progressivement avec flex et none le système remont dynamiquement les kws dans la bote de recherche 
 * lingredient c'est le dom / il faut créer un array de search query 
 * Array.prototype.
 * ludes(): https://codepen.io/lantoine/pen/ExmNNar?editors=0011 
@@ -2004,7 +2010,7 @@ document.querySelector('#searchAppareil').addEventListener('keyup', function (e)
         if (namea.includes(searchQuerya)) {
             lappareil[index].style.display = 'block';
             var countera = namea.length;
-            //menuAppareil(countera);
+
         } else {
             lappareil[index].style.display = 'none';
         }
@@ -2022,28 +2028,30 @@ function menuAppareil(countera) {
 /*
 * La partie tags
 */
-var tags = [];
+var tags = [],
+    tagsText = [];
+console.log("tags", tags);
+console.log(typeof tags);
 var mylist = document.getElementById('myList');
 
 function returnTags() {
-    return tags;
+    return tagsText;
 }
 
-mylist.addEventListener('click', function (e) { // enlever un tag
-    var index = e.target.getAttribute('value');
+function deleteItem(index) {
     tags.splice(index, 1);
-    console.log(index);
-    console.log(typeof index);
-
+    tagsText.splice(index, 1);
     updateViewTags();
     updateViewRecipes();
     updateViewRecipes(returnTags());
-});
+};
 
 function updateViewTags() {// vue des tags
     var output = "";
+
     for (var i = 0; i < tags.length; i++) {
-        output += "<span><a href='#' class='item ' value='" + i + "'>" + tags[i] + " <i class=\"bi bi-x-circle\"></i>" + "\n" + "</a></span>";
+        output += "<span class='" + tags[i].classList + "'>" + tags[i].innerText;
+        output += " <a href='#' class='item ' onclick='deleteItem(" + i + ")'><i class='no-click bi bi-x-circle'></i></a></span>";
     }
     mylist.innerHTML = output;
 }
@@ -2051,10 +2059,21 @@ updateViewTags();
 
 function handleClick(event) { // ajout de tags 
     if (event.target.tagName !== "SPAN") { return; }
-    var buttonValue = event.target.innerText; // cible la valeure du bouton
-    tags.push(buttonValue);
-    console.log("tags", typeof tags);
-    console.log("buttonValue", typeof buttonValue);
+    const buttonValue = event.target.innerText; // cible la valeure du bouton
+    const classValue = event.target.classList;
+
+    if (buttonValue !== '') {
+        if (tags.indexOf(buttonValue) >= 0) {
+            alert('Tag name is a duplicate');
+        } else {
+            tags.push({
+                innerText: buttonValue,
+                classList: classValue
+            });
+            tagsText.push(buttonValue);
+        }
+    }
+
     updateViewTags(buttonValue);
     updateViewRecipes(buttonValue);
 }
@@ -2063,7 +2082,6 @@ document.querySelector(".buttons").addEventListener("click", handleClick);
 function updateViewRecipes(ladata) { // affichage des recettes
     var labox = document.querySelectorAll('.labox'); // recettes affichage
     var liste = document.querySelectorAll('.liste'); // ingredients contenu
-    //return products.filter(({category}) => selectedProducts.includes(category));
 
     for (var j = 0; j < labox.length; j++) {
         if (!ladata || liste[j].innerText.indexOf(ladata) > -1
