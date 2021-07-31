@@ -87,8 +87,36 @@ max-height: 25px;
   height: 20px;
 }
 #myList a {
+  color: #fff;
+}
+#myList span {
+  color: #fff;
   padding-right: 15px;
   background-color: #3282F7;
+  color: #fff;
+  padding: 7px;
+  border-radius: 5px;
+  margin-right: 7px;
+}
+#myList .lingredient {
+  padding-right: 15px;
+  background-color: #3282F7;
+  color: #fff;
+  padding: 7px;
+  border-radius: 5px;
+  margin-right: 7px;
+}
+#myList .lappareil {
+  padding-right: 15px;
+  background-color: #68D9A4;
+  color: #fff;
+  padding: 7px;
+  border-radius: 5px;
+  margin-right: 7px;
+}
+#myList .lustensiles {
+  padding-right: 15px;
+  background-color: #ED6454;
   color: #fff;
   padding: 7px;
   border-radius: 5px;
