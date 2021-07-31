@@ -18,6 +18,12 @@ body {
   padding-right: 0; 
   padding-left: 0;
 }
+@media (max-width: 600px) {
+  .container {
+    padding-right: 15px; 
+    padding-left: 15px;
+  }
+}
 .card-body p, .col.liste {
   font-size: 12px;
 }
@@ -71,6 +77,8 @@ button .laloupe {
 .lingredient, .lappareil, .lustensiles {
   margin-right: 8px;
 max-height: 25px;
+height: 25px;
+/*line-height: 40px;*/
 }
 .tagsIngredients .lingredient, 
 .tagsAppareils .lappareil, 
@@ -291,7 +299,68 @@ input:focus::placeholder {
   display: flex;
   width: 100%;
 }
-
+@media (max-width: 600px) {
+  .btn-group .active .click-text {
+    width: 240px;
+    /*width: 30%;*/
+  }
+  .btn-group {
+    display: block;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    /*width: 600px;*/
+  }
+  .wrapper {
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 250px;
+  }
+  .wrapper1.active, .wrapper2.active, .wrapper2.active {
+    width: 250px;
+  }
+  .wrapper1.active ul {
+    height: 270px;
+    top: 40px;
+    padding-top: 20px;
+    width: 250px;
+    z-index: 300;
+  }
+  .wrapper1.shorter ul {
+    height: 58px;
+    width: 120px;
+  }
+  .wrapper2.active ul {
+    height: 270px;
+    top: 100px;
+    left: 15px;
+    width: 250px;
+    padding-top: 20px;
+    z-index: 300;
+  }
+  .wrapper2.shorter ul {
+    height: 58px;
+    width: 220px;
+    top: 40px;
+    padding-top: 20px;
+  }
+  .wrapper3.active ul {
+    height: 270px;
+    top: 170px;
+    padding-top: 5px;
+    width: 250px;
+    z-index: 300;
+  }
+  .wrapper3.shorter ul {
+    height: 58px;
+    width: 110px;
+    top: 10px;
+    padding-top: 50px;
+  }
+  .tagsIngredients .lingredient, .tagsAppareils .lappareil, .tagsUstensiles .lustensiles {
+    width: 45%;
+  }
+}
 .wrapper3 .myarrow {
   transform: rotate(0);
   left: 0;
