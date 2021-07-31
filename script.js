@@ -1820,7 +1820,7 @@ var handleSearch = function (event) {
         });
 
     if (tokens.length) {
-        var searchTermRegex = new RegExp(tokens.join('|'), 'gim');
+        var searchTermRegex = new RegExp(tokens.join(' '), 'gim');
         var filteredList = recipes.filter(function (recipe) { // recipes filter
             var recipestring = '';
 
@@ -2063,7 +2063,7 @@ function handleClick(event) { // ajout de tags
     const classValue = event.target.classList;
 
     if (buttonValue !== '') {
-        if (tags.indexOf(buttonValue) >= 0) {
+        if (tagsText.indexOf(buttonValue) >= 0) {
             alert('Tag name is a duplicate');
         } else {
             tags.push({
