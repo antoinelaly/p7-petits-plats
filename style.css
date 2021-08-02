@@ -306,7 +306,7 @@ input:focus::placeholder {
   }
   .btn-group {
     display: block;
-    width: 75%;
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
     /*width: 600px;*/
