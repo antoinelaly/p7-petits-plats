@@ -1830,8 +1830,8 @@ var handleSearch = function (event) {
                 }
             }
             if (ncount >= 3) {
-                return recipestring.match(searchTermRegex); // match 
-                //return recipestring.includes(tokens); // includes
+                //return recipestring.match(searchTermRegex); // match 
+                return recipestring.includes(tokens); // includes
             }
             else {
                 render(data);
@@ -1877,7 +1877,7 @@ function renderIngredient(data) {
             return a;
         }, []).join(' ');
         //console.log("unique 1", unique);
-        var recipesHTMLString = '<ul class="row tagsIngredients ">' +
+        var recipesHTMLString = '<ul class="row tagsIngredients buttons">' +
             unique
             + '</ul>';
     } else {
@@ -1902,7 +1902,7 @@ function renderAppareil(data) {
             }
             return a;
         }, []).join('');
-        var appareilHTMLString = '<ul class="row tagsAppareils">' +
+        var appareilHTMLString = '<ul class="row tagsAppareils bouApp">' +
             unique
             + '</ul>';
         //console.log("unique 2", typeof unique);
@@ -1929,7 +1929,7 @@ function renderUstensiles(data) {
             }
             return a;
         }, []).join('</span><span class="lustensiles">');
-        var ustensilesHTMLString = '<ul class="row tagsUstensiles"><span class="lustensiles">' +
+        var ustensilesHTMLString = '<ul class="row tagsUstensiles wrapper2"><span class="lustensiles">' +
             unique
             + '</span></ul>';
         // console.log("unique 3", unique);
@@ -1977,7 +1977,6 @@ document.getElementById('wrapper3').onclick = function () {
 */
 
 //recherche dans le dom et affichage dynamique de tags ingredients
-//document.querySelector('#searchInput').addEventListener('keyup', function (e) {
 document.querySelector('#searchIngredients').addEventListener('keyup', function (e) {
     let lingredient = document.querySelectorAll('.tagsIngredients .lingredient');
     let searchQuery = searchIngredients.value.toLowerCase();// Get Search Query
@@ -2038,25 +2037,29 @@ function returnTags() {
     return tagsText;
 }
 
-function deleteItem(index) {
-    tags.splice(index, 1);
-    tagsText.splice(index, 1);
-    updateViewTags();
-    updateViewRecipes();
-    updateViewRecipes(returnTags());
-};
+mylist.addEventListener('click', function (e) { // sup tags
+    var index = e.target.getAttribute('value');
+    if (index) {
+        tags.splice(index, 1);
+        tagsText.splice(index, 1);
+        updateViewTags();
+        updateViewRecipes();
+        updateViewRecipes(returnTags());
+    }
+});
 
 function updateViewTags() {// vue des tags
     var output = "";
-
     for (var i = 0; i < tags.length; i++) {
         output += "<span class='" + tags[i].classList + "'>" + tags[i].innerText;
-        output += " <a href='#' class='item ' onclick='deleteItem(" + i + ")'><i class='no-click bi bi-x-circle'></i></a></span>";
+        output += " <a href='#' class='item lestags' value='" + i + "'><i class='no-click bi bi-x-circle'></i></a></span>";
     }
     mylist.innerHTML = output;
 }
 updateViewTags();
 
+var myBox = document.getElementById("lesButtons")
+var matches = myBox.querySelectorAll(".buttons");
 function handleClick(event) { // ajout de tags 
     if (event.target.tagName !== "SPAN") { return; }
     const buttonValue = event.target.innerText; // cible la valeure du bouton
@@ -2073,11 +2076,10 @@ function handleClick(event) { // ajout de tags
             tagsText.push(buttonValue);
         }
     }
-
     updateViewTags(buttonValue);
     updateViewRecipes(buttonValue);
 }
-document.querySelector(".buttons").addEventListener("click", handleClick);
+myBox.addEventListener("click", handleClick);
 
 function updateViewRecipes(ladata) { // affichage des recettes
     var labox = document.querySelectorAll('.labox'); // recettes affichage
