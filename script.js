@@ -1830,8 +1830,8 @@ var handleSearch = function (event) {
                 }
             }
             if (ncount >= 3) {
-                //return recipestring.match(searchTermRegex); // match 
-                return recipestring.includes(tokens); // includes
+                return recipestring.match(searchTermRegex); // match 
+                //return recipestring.includes(tokens); // includes
             }
             else {
                 render(data);
@@ -1877,7 +1877,7 @@ function renderIngredient(data) {
             return a;
         }, []).join(' ');
         //console.log("unique 1", unique);
-        var recipesHTMLString = '<ul class="row tagsIngredients buttons">' +
+        var recipesHTMLString = '<ul class="row tagsIngredients losButtons">' +
             unique
             + '</ul>';
     } else {
@@ -1902,7 +1902,7 @@ function renderAppareil(data) {
             }
             return a;
         }, []).join('');
-        var appareilHTMLString = '<ul class="row tagsAppareils bouApp">' +
+        var appareilHTMLString = '<ul class="row tagsAppareils losButtons">' +
             unique
             + '</ul>';
         //console.log("unique 2", typeof unique);
@@ -1929,7 +1929,7 @@ function renderUstensiles(data) {
             }
             return a;
         }, []).join('</span><span class="lustensiles">');
-        var ustensilesHTMLString = '<ul class="row tagsUstensiles wrapper2"><span class="lustensiles">' +
+        var ustensilesHTMLString = '<ul class="row tagsUstensiles losButtons"><span class="lustensiles">' +
             unique
             + '</span></ul>';
         // console.log("unique 3", unique);
@@ -1977,6 +1977,7 @@ document.getElementById('wrapper3').onclick = function () {
 */
 
 //recherche dans le dom et affichage dynamique de tags ingredients
+//document.querySelector('#searchInput').addEventListener('keyup', function (e) {
 document.querySelector('#searchIngredients').addEventListener('keyup', function (e) {
     let lingredient = document.querySelectorAll('.tagsIngredients .lingredient');
     let searchQuery = searchIngredients.value.toLowerCase();// Get Search Query
@@ -2029,57 +2030,62 @@ function menuAppareil(countera) {
 */
 var tags = [],
     tagsText = [];
-console.log("tags", tags);
-console.log(typeof tags);
+//console.log("tags", tags);
+//console.log(typeof tags);
 var mylist = document.getElementById('myList');
 
 function returnTags() {
     return tagsText;
 }
 
-mylist.addEventListener('click', function (e) { // sup tags
-    var index = e.target.getAttribute('value');
-    if (index) {
-        tags.splice(index, 1);
-        tagsText.splice(index, 1);
-        updateViewTags();
-        updateViewRecipes();
-        updateViewRecipes(returnTags());
-    }
-});
+function deleteItem(index) {
+    tags.splice(index, 1);
+    tagsText.splice(index, 1);
+    updateViewTags();
+    updateViewRecipes();
+    updateViewRecipes(returnTags());
+};
 
 function updateViewTags() {// vue des tags
     var output = "";
+
     for (var i = 0; i < tags.length; i++) {
         output += "<span class='" + tags[i].classList + "'>" + tags[i].innerText;
-        output += " <a href='#' class='item lestags' value='" + i + "'><i class='no-click bi bi-x-circle'></i></a></span>";
+        output += " <a href='#' class='item ' onclick='deleteItem(" + i + ")'><i class='no-click bi bi-x-circle'></i></a></span>";
     }
     mylist.innerHTML = output;
 }
 updateViewTags();
 
-var myBox = document.getElementById("lesButtons")
-var matches = myBox.querySelectorAll(".buttons");
-function handleClick(event) { // ajout de tags 
-    if (event.target.tagName !== "SPAN") { return; }
-    const buttonValue = event.target.innerText; // cible la valeure du bouton
-    const classValue = event.target.classList;
+var losButtons = document.querySelectorAll('.losButtons');
 
-    if (buttonValue !== '') {
-        if (tagsText.indexOf(buttonValue) >= 0) {
-            alert('Tag name is a duplicate');
-        } else {
-            tags.push({
-                innerText: buttonValue,
-                classList: classValue
-            });
-            tagsText.push(buttonValue);
+for (var i = 0; i < losButtons.length; i++) {
+    losButtons[i].addEventListener('click', function (event) {
+        if (event.target.tagName !== "SPAN") { return; }
+        const buttonValue = event.target.innerText; // cible la valeure du bouton
+        const classValue = event.target.classList;
+    
+        if (buttonValue !== '') {
+            if (tagsText.indexOf(buttonValue) >= 0) {
+                alert('Tag name is a duplicate');
+            } else {
+                tags.push({
+                    innerText: buttonValue,
+                    classList: classValue
+                });
+                tagsText.push(buttonValue);
+            }
         }
-    }
-    updateViewTags(buttonValue);
-    updateViewRecipes(buttonValue);
+    
+        updateViewTags(buttonValue);
+        updateViewRecipes(buttonValue);
+    });
 }
-myBox.addEventListener("click", handleClick);
+
+
+
+
+console.log("buttons", buttons);
 
 function updateViewRecipes(ladata) { // affichage des recettes
     var labox = document.querySelectorAll('.labox'); // recettes affichage
