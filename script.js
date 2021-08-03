@@ -2083,10 +2083,6 @@ for (var i = 0; i < losButtons.length; i++) {
 }
 
 
-
-
-console.log("buttons", buttons);
-
 function updateViewRecipes(ladata) { // affichage des recettes
     var labox = document.querySelectorAll('.labox'); // recettes affichage
     var liste = document.querySelectorAll('.liste'); // ingredients contenu
